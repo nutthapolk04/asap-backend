@@ -214,6 +214,343 @@ const mockPrivacyPolicy = ref({
   lastUpdated: '2025-11-01'
 })
 
+// Mock Car Brands & Models
+const mockCarBrands = ref([
+  {
+    id: 1,
+    name: 'Toyota',
+    logo: 'https://placehold.co/100x100/FF595A/white?text=Toyota',
+    order: 1,
+    isActive: true,
+    models: [
+      {
+        id: 1,
+        name: 'Revo',
+        images: [
+          'https://placehold.co/400x300/FF595A/white?text=Revo+1',
+          'https://placehold.co/400x300/FF595A/white?text=Revo+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-08T10:30:00'
+      },
+      {
+        id: 2,
+        name: 'Vios',
+        images: [
+          'https://placehold.co/400x300/FF595A/white?text=Vios+1',
+          'https://placehold.co/400x300/FF595A/white?text=Vios+2',
+          'https://placehold.co/400x300/FF595A/white?text=Vios+3',
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-07T14:20:00'
+      },
+      {
+        id: 3,
+        name: 'Yaris',
+        images: [
+          'https://placehold.co/400x300/FF595A/white?text=Yaris+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-05T09:15:00'
+      },
+      {
+        id: 14,
+        name: 'Camry',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      },
+      {
+        id: 15,
+        name: 'Fortuner',
+        images: [
+          'https://placehold.co/400x300/FF595A/white?text=Fortuner+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-01T11:00:00'
+      },
+      {
+        id: 16,
+        name: 'Corolla Cross',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      },
+      {
+        id: 17,
+        name: 'Hilux',
+        images: [
+          'https://placehold.co/400x300/FF595A/white?text=Hilux+1',
+          'https://placehold.co/400x300/FF595A/white?text=Hilux+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-11-28T16:45:00'
+      }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Honda',
+    logo: 'https://placehold.co/100x100/2574FF/white?text=Honda',
+    order: 2,
+    isActive: true,
+    models: [
+      {
+        id: 4,
+        name: 'City',
+        images: [
+          'https://placehold.co/400x300/2574FF/white?text=City+1',
+          'https://placehold.co/400x300/2574FF/white?text=City+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-09T08:30:00'
+      },
+      {
+        id: 5,
+        name: 'Brio',
+        images: [
+          'https://placehold.co/400x300/2574FF/white?text=Brio+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-06T13:00:00'
+      },
+      {
+        id: 6,
+        name: 'Civic',
+        images: [
+          'https://placehold.co/400x300/2574FF/white?text=Civic+1',
+          'https://placehold.co/400x300/2574FF/white?text=Civic+2',
+          'https://placehold.co/400x300/2574FF/white?text=Civic+3',
+          'https://placehold.co/400x300/2574FF/white?text=Civic+4',
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-10T07:00:00'
+      },
+      {
+        id: 18,
+        name: 'Accord',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      },
+      {
+        id: 19,
+        name: 'HR-V',
+        images: [
+          'https://placehold.co/400x300/2574FF/white?text=HRV+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-04T10:20:00'
+      },
+      {
+        id: 20,
+        name: 'CR-V',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Deepal',
+    logo: 'https://placehold.co/100x100/36B37E/white?text=Deepal',
+    order: 3,
+    isActive: true,
+    models: [
+      {
+        id: 7,
+        name: 'S07',
+        images: [
+          'https://placehold.co/400x300/36B37E/white?text=S07+1',
+          'https://placehold.co/400x300/36B37E/white?text=S07+2',
+          'https://placehold.co/400x300/36B37E/white?text=S07+3',
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-09T15:30:00'
+      },
+      {
+        id: 8,
+        name: 'S05',
+        images: [
+          'https://placehold.co/400x300/36B37E/white?text=S05+1',
+          'https://placehold.co/400x300/36B37E/white?text=S05+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-08T12:00:00'
+      }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Nissan',
+    logo: 'https://placehold.co/100x100/FFAB00/white?text=Nissan',
+    order: 4,
+    isActive: true,
+    models: [
+      {
+        id: 9,
+        name: 'Almera',
+        images: [
+          'https://placehold.co/400x300/FFAB00/white?text=Almera+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-03T09:00:00'
+      },
+      {
+        id: 10,
+        name: 'Kicks',
+        images: [
+          'https://placehold.co/400x300/FFAB00/white?text=Kicks+1',
+          'https://placehold.co/400x300/FFAB00/white?text=Kicks+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-07T11:30:00'
+      },
+      {
+        id: 21,
+        name: 'Note',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      }
+    ]
+  },
+  {
+    id: 5,
+    name: 'Mazda',
+    logo: 'https://placehold.co/100x100/9B59B6/white?text=Mazda',
+    order: 5,
+    isActive: true,
+    models: [
+      {
+        id: 11,
+        name: 'Mazda 2',
+        images: [
+          'https://placehold.co/400x300/9B59B6/white?text=Mazda2+1',
+          'https://placehold.co/400x300/9B59B6/white?text=Mazda2+2',
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-06T14:00:00'
+      },
+      {
+        id: 12,
+        name: 'Mazda 3',
+        images: [
+          'https://placehold.co/400x300/9B59B6/white?text=Mazda3+1',
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-02T16:00:00'
+      },
+      {
+        id: 13,
+        name: 'CX-5',
+        images: [
+          'https://placehold.co/400x300/9B59B6/white?text=CX5+1',
+          'https://placehold.co/400x300/9B59B6/white?text=CX5+2',
+          'https://placehold.co/400x300/9B59B6/white?text=CX5+3',
+          null,
+          null,
+          null
+        ],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: '2025-12-09T09:45:00'
+      },
+      {
+        id: 22,
+        name: 'CX-30',
+        images: [null, null, null, null, null, null],
+        displayOrder: [1, 2, 3, 4, 5, 6],
+        isActive: true,
+        lastImageUpdate: null
+      }
+    ]
+  }
+])
+
 export const useApi = () => {
   // ===== Banners =====
   const getBanners = async () => {
@@ -519,6 +856,47 @@ export const useApi = () => {
     return mockPrivacyPolicy.value
   }
 
+  // ===== Car Brands & Models =====
+  const getCarBrands = async () => {
+    return mockCarBrands.value.map(brand => ({
+      ...brand,
+      models: [...brand.models]
+    })).sort((a, b) => a.order - b.order)
+  }
+
+  const getCarBrand = async (id) => {
+    const brand = mockCarBrands.value.find(b => b.id === parseInt(id))
+    if (brand) {
+      return { ...brand, models: [...brand.models] }
+    }
+    return null
+  }
+
+  const updateCarModelImages = async (brandId, modelId, images, displayOrder) => {
+    const brand = mockCarBrands.value.find(b => b.id === parseInt(brandId))
+    if (brand) {
+      const model = brand.models.find(m => m.id === parseInt(modelId))
+      if (model) {
+        model.images = images
+        model.displayOrder = displayOrder || [1, 2, 3, 4, 5, 6]
+        return model
+      }
+    }
+    return null
+  }
+
+  const updateCarModelStatus = async (brandId, modelId, isActive) => {
+    const brand = mockCarBrands.value.find(b => b.id === parseInt(brandId))
+    if (brand) {
+      const model = brand.models.find(m => m.id === parseInt(modelId))
+      if (model) {
+        model.isActive = isActive
+        return model
+      }
+    }
+    return null
+  }
+
   return {
     // Banners
     getBanners,
@@ -574,6 +952,11 @@ export const useApi = () => {
     updateContactUs,
     // Privacy Policy
     getPrivacyPolicy,
-    updatePrivacyPolicy
+    updatePrivacyPolicy,
+    // Car Brands & Models
+    getCarBrands,
+    getCarBrand,
+    updateCarModelImages,
+    updateCarModelStatus
   }
 }

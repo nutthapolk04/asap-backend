@@ -118,6 +118,19 @@ const routes = [
         component: () => import('@/views/faq/CategoryList.vue'),
         meta: { title: 'หมวดหมู่คำถาม' }
       },
+      // Car Models
+      {
+        path: 'car-models',
+        name: 'CarModelList',
+        component: () => import('@/views/car/CarModelList.vue'),
+        meta: { title: 'จัดการรูปภาพรถยนต์' }
+      },
+      {
+        path: 'car-models/:id',
+        name: 'BrandDetail',
+        component: () => import('@/views/car/BrandDetail.vue'),
+        meta: { title: 'จัดการรูปภาพรถยนต์' }
+      },
       // Static Pages
       {
         path: 'pages/contact',

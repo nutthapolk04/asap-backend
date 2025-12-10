@@ -34,6 +34,11 @@
         </el-menu-item>
       </el-sub-menu>
 
+      <el-menu-item index="/car-models">
+        <el-icon><Van /></el-icon>
+        <span>รูปภาพรถยนต์</span>
+      </el-menu-item>
+
       <el-sub-menu index="content">
         <template #title>
           <el-icon><Document /></el-icon>
