@@ -1,14 +1,14 @@
-# ASAP Car Rental - Backoffice CMS (UI Only)
+# ASAP Car Rental - Backoffice CMS
 
 ## Project Overview
 
 **Project:** ASAP Car Rental Backoffice CMS
-**Type:** Frontend UI Only (ไม่รวม Backend)
+**Type:** Frontend UI with Mock Data
 **Framework:** Vue.js 3 + Vite
 **Language:** JavaScript (ES Modules)
 
-> **Note:** โปรเจคนี้เป็น Backoffice UI สำหรับจัดการ Content เท่านั้น
-> ยังไม่รวม Backend/API - รอ integrate กับ Strapi หรือระบบภายในภายหลัง
+> **Note:** โปรเจคนี้เป็น Backoffice UI สำหรับจัดการ Content
+> ใช้ Mock Data สำหรับ demo - พร้อม integrate กับ API ภายหลัง
 
 ---
 
@@ -525,64 +525,6 @@ export const useApi = () => {
 
 ---
 
-## Future Integration (Strapi)
-
-<!--
-===========================================
-STRAPI INTEGRATION - COMMENTED FOR FUTURE
-===========================================
-
-เมื่อพร้อม integrate กับ Strapi ให้:
-
-1. Install Strapi
-   ```bash
-   npx create-strapi-app@latest asap-cms
-   ```
-
-2. Configure Database (PostgreSQL)
-   - ดู config ใน ASAP-Backoffice-Strapi-README.md
-
-3. Configure AWS S3
-   - ดู config ใน ASAP-Backoffice-Strapi-README.md
-
-4. Create Content Types ตาม schema ที่กำหนด
-
-5. Update useApi.js เพื่อเรียก Strapi API
-
-   ```javascript
-   import axios from 'axios';
-
-   const strapiAPI = axios.create({
-     baseURL: import.meta.env.VITE_STRAPI_URL,
-     headers: {
-       Authorization: `Bearer ${token}`
-     }
-   });
-
-   export const useApi = () => {
-     const getBanners = async () => {
-       const { data } = await strapiAPI.get('/api/hero-banners', {
-         params: {
-           populate: '*',
-           sort: 'order:asc'
-         }
-       });
-       return data.data;
-     };
-     // ...
-   };
-   ```
-
-6. Environment Variables
-   ```env
-   VITE_STRAPI_URL=http://localhost:1337
-   ```
-
-===========================================
--->
-
----
-
 ## Development Commands
 
 ```bash
@@ -597,7 +539,27 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Run production server (for deployment)
+npm start
 ```
+
+---
+
+## Deployment (Render)
+
+This project is configured to deploy on Render.com as a Web Service.
+
+**Build Command:** `npm install && npm run build`
+**Start Command:** `npm start`
+
+### Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `/` | Main application |
+| `/health` | Health check |
+| `/api/status` | Server status (uptime, memory) |
 
 ---
 
@@ -629,8 +591,7 @@ npm run preview
 
 ---
 
-*Document Version: 1.1*
+*Document Version: 1.2*
 *Created: November 28, 2025*
-*Type: Frontend UI Only (No Backend)*
-# asap-backend
-# asap-backend
+*Updated: December 10, 2025*
+*Type: Frontend UI with Mock Data*
