@@ -55,6 +55,24 @@ const mockPromotions = ref([
   }
 ])
 
+// Mock Branches (สาขา)
+const mockBranches = ref([
+  { id: 1, name: 'กรุงเทพ - สนามบิน สุวรรณภูมิ' },
+  { id: 2, name: 'กรุงเทพ - สนามบิน ดอนเมือง' },
+  { id: 3, name: 'กรุงเทพ - สีลม' },
+  { id: 4, name: 'กรุงเทพ - รัชดา' },
+  { id: 5, name: 'ภูเก็ต - สนามบิน' },
+  { id: 6, name: 'ภูเก็ต - ป่าตอง' },
+  { id: 7, name: 'ภูเก็ต - เมือง' },
+  { id: 8, name: 'กระบี่ - สนามบิน' },
+  { id: 9, name: 'กระบี่ - อ่าวนาง' },
+  { id: 10, name: 'เชียงใหม่ - สนามบิน' },
+  { id: 11, name: 'เชียงใหม่ - นิมมาน' },
+  { id: 12, name: 'พัทยา - สาขาหลัก' },
+  { id: 13, name: 'หาดใหญ่ - สนามบิน' },
+  { id: 14, name: 'สมุย - สนามบิน' }
+])
+
 const mockProvinces = ref([
   {
     id: 1,
@@ -62,7 +80,8 @@ const mockProvinces = ref([
     image: 'https://placehold.co/570x320/FF595A/white?text=Bangkok',
     link: '/search?province=bangkok',
     order: 1,
-    isActive: true
+    isActive: true,
+    branches: [1, 2, 3, 4]
   },
   {
     id: 2,
@@ -70,7 +89,8 @@ const mockProvinces = ref([
     image: 'https://placehold.co/570x320/2574FF/white?text=Phuket',
     link: '/search?province=phuket',
     order: 2,
-    isActive: true
+    isActive: true,
+    branches: [5, 6, 7]
   },
   {
     id: 3,
@@ -78,7 +98,8 @@ const mockProvinces = ref([
     image: 'https://placehold.co/570x320/36B37E/white?text=Krabi',
     link: '/search?province=krabi',
     order: 3,
-    isActive: true
+    isActive: true,
+    branches: [8, 9]
   }
 ])
 
@@ -101,7 +122,8 @@ const mockArticles = ref([
     publishedDate: '2025-11-28',
     metaTitle: '',
     metaDescription: '',
-    status: 'published'
+    status: 'published',
+    tags: ['ท่องเที่ยว', 'เที่ยวทะเล', 'เที่ยวภูเขา']
   },
   {
     id: 2,
@@ -114,7 +136,8 @@ const mockArticles = ref([
     publishedDate: '2025-11-27',
     metaTitle: '',
     metaDescription: '',
-    status: 'published'
+    status: 'published',
+    tags: ['รถประหยัด', 'ขับรถระยะไกล']
   },
   {
     id: 3,
@@ -127,7 +150,8 @@ const mockArticles = ref([
     publishedDate: '2025-11-26',
     metaTitle: '',
     metaDescription: '',
-    status: 'draft'
+    status: 'draft',
+    tags: ['โปรโมชั่น', 'รถEV', 'Deepal']
   }
 ])
 
@@ -208,11 +232,145 @@ const mockContactUs = ref({
   workingHours: 'จันทร์-ศุกร์ 08:00-18:00 น.'
 })
 
+// Mock Contact Submissions (ข้อความจากลูกค้า)
+const mockContactSubmissions = ref([
+  {
+    id: 1,
+    firstName: 'สมชาย',
+    lastName: 'ใจดี',
+    email: 'somchai@gmail.com',
+    phone: '+66909990000',
+    subject: 'การเช่ารถมากกว่า 1 เดือน',
+    message: 'สนใจเช่ารถเป็นระยะเวลา 2 เดือนขึ้นไป มีส่วนลดเพิ่มเติมไหมครับ อยากทราบรายละเอียดเพิ่มเติมครับ',
+    createdAt: '2025-12-15T10:30:00',
+    isRead: false,
+    readAt: null,
+    readBy: null,
+    remark: null
+  },
+  {
+    id: 2,
+    firstName: 'สมหญิง',
+    lastName: 'รักเที่ยว',
+    email: 'somying@hotmail.com',
+    phone: '+66812345678',
+    subject: 'สอบถามเรื่องประกันภัย',
+    message: 'อยากทราบว่าค่าเช่ารถรวมประกันภัยชั้น 1 หรือไม่คะ และถ้าเกิดอุบัติเหตุต้องรับผิดชอบค่าใช้จ่ายอย่างไรบ้าง',
+    createdAt: '2025-12-14T15:45:00',
+    isRead: true,
+    readAt: '2025-12-14T16:30:00',
+    readBy: 'Admin',
+    remark: 'ติดต่อกลับทางโทรศัพท์แล้ว'
+  },
+  {
+    id: 3,
+    firstName: 'วิชัย',
+    lastName: 'ขับดี',
+    email: 'wichai@yahoo.com',
+    phone: '+66898765432',
+    subject: 'ขอใบเสนอราคาสำหรับบริษัท',
+    message: 'บริษัทต้องการเช่ารถจำนวน 5 คัน สำหรับพนักงาน ระยะเวลา 1 ปี รบกวนส่งใบเสนอราคามาที่อีเมลด้วยครับ',
+    createdAt: '2025-12-13T09:00:00',
+    isRead: true,
+    readAt: '2025-12-13T10:00:00',
+    readBy: 'Admin',
+    remark: 'ส่งใบเสนอราคาทางอีเมลแล้ว รอการตอบกลับ'
+  },
+  {
+    id: 4,
+    firstName: 'นภา',
+    lastName: 'ท่องโลก',
+    email: 'napa.travel@gmail.com',
+    phone: '+66876543210',
+    subject: 'สอบถามเรื่องรถ EV',
+    message: 'สนใจเช่ารถ EV ไปเที่ยวต่างจังหวัด อยากทราบว่ามีจุดชาร์จไฟตามเส้นทางไหมคะ และแนะนำรุ่นไหนดี',
+    createdAt: '2025-12-12T14:20:00',
+    isRead: false,
+    readAt: null,
+    readBy: null,
+    remark: null
+  },
+  {
+    id: 5,
+    firstName: 'ประยุทธ์',
+    lastName: 'ขับปลอดภัย',
+    email: 'prayut@company.co.th',
+    phone: '+66891234567',
+    subject: 'ขอเปลี่ยนวันรับรถ',
+    message: 'มีการจองรถไว้วันที่ 20 ธ.ค. หมายเลขการจอง ASP12345 ขอเปลี่ยนเป็นวันที่ 22 ธ.ค. แทนได้ไหมครับ',
+    createdAt: '2025-12-11T11:30:00',
+    isRead: false,
+    readAt: null,
+    readBy: null,
+    remark: null
+  }
+])
+
 const mockPrivacyPolicy = ref({
   title: 'นโยบายความเป็นส่วนตัว',
   content: '<h2>1. ข้อมูลที่เราเก็บรวบรวม</h2><p>เราเก็บรวบรวมข้อมูลส่วนบุคคลที่คุณให้กับเรา...</p>',
   lastUpdated: '2025-11-01'
 })
+
+const mockAppBanner = ref({
+  title: 'จองสะดวกขึ้นผ่านแอปเอแซ็ป (asap app)',
+  description: 'ค้นหารถเช่า check-in สะสม ASC Coin ผ่านแอป',
+  bannerImage: 'https://placehold.co/600x400/FF595A/white?text=App+Banner',
+  logoImage: 'https://placehold.co/100x100/FF595A/white?text=ASAP',
+  backgroundColor: '#FF595A',
+  appStoreLink: 'https://apps.apple.com/app/asap',
+  googlePlayLink: 'https://play.google.com/store/apps/asap',
+  isActive: true
+})
+
+// Mock Car Categories (ประเภทกลุ่มรถ)
+const mockCarCategories = ref([
+  {
+    id: 1,
+    name: 'Economy',
+    slug: 'economy',
+    image: 'https://placehold.co/400x300/FF595A/white?text=Economy',
+    order: 1,
+    isActive: true,
+    carCount: 5
+  },
+  {
+    id: 2,
+    name: 'SUV',
+    slug: 'suv',
+    image: 'https://placehold.co/400x300/2574FF/white?text=SUV',
+    order: 2,
+    isActive: true,
+    carCount: 8
+  },
+  {
+    id: 3,
+    name: 'EV Car',
+    slug: 'ev-car',
+    image: 'https://placehold.co/400x300/36B37E/white?text=EV+Car',
+    order: 3,
+    isActive: true,
+    carCount: 3
+  },
+  {
+    id: 4,
+    name: 'Hybrid Car',
+    slug: 'hybrid-car',
+    image: 'https://placehold.co/400x300/9B59B6/white?text=Hybrid+Car',
+    order: 4,
+    isActive: true,
+    carCount: 4
+  },
+  {
+    id: 5,
+    name: 'Luxury',
+    slug: 'luxury',
+    image: 'https://placehold.co/400x300/FFAB00/white?text=Luxury',
+    order: 5,
+    isActive: true,
+    carCount: 2
+  }
+])
 
 // Mock Car Brands & Models
 const mockCarBrands = ref([
@@ -662,6 +820,11 @@ export const useApi = () => {
     return false
   }
 
+  // ===== Branches =====
+  const getBranches = async () => {
+    return [...mockBranches.value]
+  }
+
   // ===== Article Categories =====
   const getArticleCategories = async () => {
     return [...mockArticleCategories.value].sort((a, b) => a.order - b.order)
@@ -846,6 +1009,25 @@ export const useApi = () => {
     return mockContactUs.value
   }
 
+  // ===== Contact Submissions =====
+  const getContactSubmissions = async () => {
+    return [...mockContactSubmissions.value].sort((a, b) =>
+      new Date(b.createdAt) - new Date(a.createdAt)
+    )
+  }
+
+  const markContactSubmissionRead = async (id, remark = '') => {
+    const submission = mockContactSubmissions.value.find(s => s.id === parseInt(id))
+    if (submission) {
+      submission.isRead = true
+      submission.readAt = new Date().toISOString()
+      submission.readBy = 'Admin'
+      submission.remark = remark
+      return submission
+    }
+    return null
+  }
+
   // ===== Privacy Policy =====
   const getPrivacyPolicy = async () => {
     return { ...mockPrivacyPolicy.value }
@@ -854,6 +1036,50 @@ export const useApi = () => {
   const updatePrivacyPolicy = async (data) => {
     mockPrivacyPolicy.value = { ...mockPrivacyPolicy.value, ...data }
     return mockPrivacyPolicy.value
+  }
+
+  // ===== App Banner =====
+  const getAppBanner = async () => {
+    return { ...mockAppBanner.value }
+  }
+
+  const updateAppBanner = async (data) => {
+    mockAppBanner.value = { ...mockAppBanner.value, ...data }
+    return mockAppBanner.value
+  }
+
+  // ===== Car Categories (ประเภทกลุ่มรถ) =====
+  const getCarCategories = async () => {
+    return [...mockCarCategories.value].sort((a, b) => a.order - b.order)
+  }
+
+  const getCarCategory = async (id) => {
+    return mockCarCategories.value.find(c => c.id === parseInt(id))
+  }
+
+  const createCarCategory = async (data) => {
+    const newId = Math.max(...mockCarCategories.value.map(c => c.id)) + 1
+    const newCategory = { ...data, id: newId, carCount: 0 }
+    mockCarCategories.value.push(newCategory)
+    return newCategory
+  }
+
+  const updateCarCategory = async (id, data) => {
+    const index = mockCarCategories.value.findIndex(c => c.id === parseInt(id))
+    if (index !== -1) {
+      mockCarCategories.value[index] = { ...mockCarCategories.value[index], ...data }
+      return mockCarCategories.value[index]
+    }
+    return null
+  }
+
+  const deleteCarCategory = async (id) => {
+    const index = mockCarCategories.value.findIndex(c => c.id === parseInt(id))
+    if (index !== -1) {
+      mockCarCategories.value.splice(index, 1)
+      return true
+    }
+    return false
   }
 
   // ===== Car Brands & Models =====
@@ -917,6 +1143,8 @@ export const useApi = () => {
     createProvince,
     updateProvince,
     deleteProvince,
+    // Branches
+    getBranches,
     // Article Categories
     getArticleCategories,
     getArticleCategory,
@@ -950,9 +1178,21 @@ export const useApi = () => {
     // Contact Us
     getContactUs,
     updateContactUs,
+    // Contact Submissions
+    getContactSubmissions,
+    markContactSubmissionRead,
     // Privacy Policy
     getPrivacyPolicy,
     updatePrivacyPolicy,
+    // App Banner
+    getAppBanner,
+    updateAppBanner,
+    // Car Categories
+    getCarCategories,
+    getCarCategory,
+    createCarCategory,
+    updateCarCategory,
+    deleteCarCategory,
     // Car Brands & Models
     getCarBrands,
     getCarBrand,

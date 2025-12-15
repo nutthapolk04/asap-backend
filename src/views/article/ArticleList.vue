@@ -63,6 +63,25 @@
 
         <el-table-column prop="category" label="หมวดหมู่" width="120" />
 
+        <el-table-column label="แท็ก" min-width="200">
+          <template #default="{ row }">
+            <div class="tags-cell">
+              <el-tag
+                v-for="tag in (row.tags || []).slice(0, 3)"
+                :key="tag"
+                size="small"
+                type="info"
+                class="tag-item"
+              >
+                {{ tag }}
+              </el-tag>
+              <el-tag v-if="(row.tags || []).length > 3" size="small" type="info">
+                +{{ row.tags.length - 3 }}
+              </el-tag>
+            </div>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="publishedDate" label="วันที่" width="120">
           <template #default="{ row }">
             {{ formatDate(row.publishedDate) }}
@@ -204,5 +223,15 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   gap: 4px;
+}
+
+.tags-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .tag-item {
+    margin: 0;
+  }
 }
 </style>

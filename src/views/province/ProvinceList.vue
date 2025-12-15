@@ -42,6 +42,28 @@
 
         <el-table-column prop="name" label="ชื่อจังหวัด" min-width="150" />
 
+        <el-table-column label="สาขา" min-width="200">
+          <template #default="{ row }">
+            <div class="branches-cell">
+              <el-tag
+                v-for="branchId in (row.branches || []).slice(0, 2)"
+                :key="branchId"
+                size="small"
+                type="info"
+                class="branch-tag"
+              >
+                {{ getBranchName(branchId) }}
+              </el-tag>
+              <el-tag v-if="(row.branches || []).length > 2" size="small" type="info">
+                +{{ row.branches.length - 2 }}
+              </el-tag>
+              <span v-if="!row.branches || row.branches.length === 0" class="text-muted">
+                ยังไม่ได้เลือกสาขา
+              </span>
+            </div>
+          </template>
+        </el-table-column>
+
         <el-table-column prop="link" label="ลิงก์" min-width="180">
           <template #default="{ row }">
             <span v-if="row.link" class="link-text">{{ row.link }}</span>
@@ -88,15 +110,26 @@ import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useApi } from '@/composables/useApi'
 
-const { getProvinces, updateProvince, deleteProvince } = useApi()
+const { getProvinces, updateProvince, deleteProvince, getBranches } = useApi()
 
 const loading = ref(false)
 const provinces = ref([])
+const branches = ref([])
 
-const fetchProvinces = async () => {
+const getBranchName = (branchId) => {
+  const branch = branches.value.find(b => b.id === branchId)
+  return branch ? branch.name : `สาขา #${branchId}`
+}
+
+const fetchData = async () => {
   loading.value = true
   try {
-    provinces.value = await getProvinces()
+    const [provincesData, branchesData] = await Promise.all([
+      getProvinces(),
+      getBranches()
+    ])
+    provinces.value = provincesData
+    branches.value = branchesData
   } catch (error) {
     ElMessage.error('ไม่สามารถโหลดข้อมูลได้')
   } finally {
@@ -128,7 +161,7 @@ const handleDelete = async (row) => {
 
     await deleteProvince(row.id)
     ElMessage.success('ลบจังหวัดสำเร็จ')
-    fetchProvinces()
+    fetchData()
   } catch (error) {
     if (error !== 'cancel') {
       ElMessage.error('ไม่สามารถลบได้')
@@ -137,7 +170,7 @@ const handleDelete = async (row) => {
 }
 
 onMounted(() => {
-  fetchProvinces()
+  fetchData()
 })
 </script>
 
@@ -173,5 +206,15 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   gap: 4px;
+}
+
+.branches-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .branch-tag {
+    margin: 0;
+  }
 }
 </style>

@@ -30,6 +30,13 @@ const routes = [
         component: () => import('@/views/banner/BannerForm.vue'),
         meta: { title: 'แก้ไขแบนเนอร์' }
       },
+      // App Banner (Home Application Banner)
+      {
+        path: 'app-banner',
+        name: 'AppBanner',
+        component: () => import('@/views/pages/AppBanner.vue'),
+        meta: { title: 'จัดการ Home Application Banner' }
+      },
       // Promotion
       {
         path: 'promotions',
@@ -131,12 +138,25 @@ const routes = [
         component: () => import('@/views/car/BrandDetail.vue'),
         meta: { title: 'จัดการรูปภาพรถยนต์' }
       },
+      // Car Categories
+      {
+        path: 'car-categories',
+        name: 'CarCategoryList',
+        component: () => import('@/views/car/CarCategoryList.vue'),
+        meta: { title: 'จัดการประเภทกลุ่มรถ' }
+      },
       // Static Pages
       {
         path: 'pages/contact',
         name: 'ContactUs',
         component: () => import('@/views/pages/ContactUs.vue'),
         meta: { title: 'ข้อมูลติดต่อ' }
+      },
+      {
+        path: 'contact-submissions',
+        name: 'ContactSubmissions',
+        component: () => import('@/views/pages/ContactSubmissions.vue'),
+        meta: { title: 'ข้อความจากลูกค้า' }
       },
       {
         path: 'pages/privacy',

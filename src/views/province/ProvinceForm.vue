@@ -51,6 +51,24 @@
             </el-form-item>
           </el-col>
         </el-row>
+
+        <el-form-item label="สาขาในจังหวัดนี้" prop="branches">
+          <el-select
+            v-model="form.branches"
+            multiple
+            filterable
+            placeholder="เลือกสาขา"
+            style="width: 100%;"
+          >
+            <el-option
+              v-for="branch in availableBranches"
+              :key="branch.id"
+              :label="branch.name"
+              :value="branch.id"
+            />
+          </el-select>
+          <div class="field-hint">เลือกสาขาที่ตั้งอยู่ในจังหวัดนี้เพื่อแสดงในหน้าเว็บ</div>
+        </el-form-item>
       </div>
 
       <div class="form-section">
@@ -100,10 +118,11 @@ import { useApi } from '@/composables/useApi'
 
 const route = useRoute()
 const router = useRouter()
-const { getProvince, createProvince, updateProvince } = useApi()
+const { getProvince, createProvince, updateProvince, getBranches } = useApi()
 
 const formRef = ref()
 const saving = ref(false)
+const availableBranches = ref([])
 
 const isEdit = computed(() => !!route.params.id)
 
@@ -112,7 +131,8 @@ const form = reactive({
   image: '',
   link: '',
   order: 1,
-  isActive: true
+  isActive: true,
+  branches: []
 })
 
 const rules = {
@@ -159,25 +179,34 @@ const handleSubmit = async () => {
   })
 }
 
-const loadProvince = async () => {
-  if (isEdit.value) {
-    try {
+const loadData = async () => {
+  try {
+    // Load branches first
+    availableBranches.value = await getBranches()
+
+    // Load province data if editing
+    if (isEdit.value) {
       const data = await getProvince(route.params.id)
       if (data) {
-        Object.assign(form, data)
+        Object.assign(form, {
+          ...data,
+          branches: data.branches || []
+        })
       } else {
         ElMessage.error('ไม่พบข้อมูลจังหวัด')
         router.push('/provinces')
       }
-    } catch (error) {
-      ElMessage.error('ไม่สามารถโหลดข้อมูลได้')
+    }
+  } catch (error) {
+    ElMessage.error('ไม่สามารถโหลดข้อมูลได้')
+    if (isEdit.value) {
       router.push('/provinces')
     }
   }
 }
 
 onMounted(() => {
-  loadProvince()
+  loadData()
 })
 </script>
 
@@ -271,6 +300,12 @@ onMounted(() => {
 }
 
 .image-hint {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.field-hint {
   font-size: 12px;
   color: #999;
   margin-top: 8px;

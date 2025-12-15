@@ -113,6 +113,26 @@
                   <el-option label="เผยแพร่" value="published" />
                 </el-select>
               </el-form-item>
+
+              <el-form-item label="แท็ก" prop="tags">
+                <el-select
+                  v-model="form.tags"
+                  multiple
+                  filterable
+                  allow-create
+                  default-first-option
+                  placeholder="พิมพ์แล้วกด Enter เพื่อเพิ่มแท็ก"
+                  style="width: 100%;"
+                >
+                  <el-option
+                    v-for="tag in availableTags"
+                    :key="tag"
+                    :label="tag"
+                    :value="tag"
+                  />
+                </el-select>
+                <div class="tags-hint">พิมพ์แท็กแล้วกด Enter เพื่อเพิ่มแท็กใหม่</div>
+              </el-form-item>
             </div>
 
             <div class="form-section">
@@ -170,6 +190,18 @@ const { getArticle, getArticleCategories, createArticle, updateArticle } = useAp
 const formRef = ref()
 const saving = ref(false)
 const categories = ref([])
+const availableTags = ref([
+  'สายแคมป์ปิ้ง',
+  'รถEV',
+  'Deepal',
+  'เที่ยวทะเล',
+  'เที่ยวภูเขา',
+  'รถประหยัด',
+  'รถครอบครัว',
+  'โปรโมชั่น',
+  'ขับรถระยะไกล',
+  'ท่องเที่ยว'
+])
 
 const isEdit = computed(() => !!route.params.id)
 
@@ -182,7 +214,8 @@ const form = reactive({
   publishedDate: new Date().toISOString().split('T')[0],
   metaTitle: '',
   metaDescription: '',
-  status: 'draft'
+  status: 'draft',
+  tags: []
 })
 
 const rules = {
@@ -375,6 +408,12 @@ onMounted(() => {
 }
 
 .image-hint {
+  font-size: 12px;
+  color: #999;
+  margin-top: 8px;
+}
+
+.tags-hint {
   font-size: 12px;
   color: #999;
   margin-top: 8px;

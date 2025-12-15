@@ -1,7 +1,11 @@
 <template>
   <aside class="sidebar">
     <div class="sidebar-logo">
-      <h1>ASAP</h1>
+      <img
+        src="https://go.asapcarrent.com/wp-content/uploads/2024/06/asap_logo-02-300x175.png"
+        alt="ASAP Logo"
+        class="logo-image"
+      />
       <span>ระบบจัดการหลังบ้าน</span>
     </div>
 
@@ -32,12 +36,26 @@
           <el-icon><Location /></el-icon>
           <span>จังหวัด</span>
         </el-menu-item>
+        <el-menu-item index="/app-banner">
+          <el-icon><Iphone /></el-icon>
+          <span>App Banner</span>
+        </el-menu-item>
       </el-sub-menu>
 
-      <el-menu-item index="/car-models">
-        <el-icon><Van /></el-icon>
-        <span>รูปภาพรถยนต์</span>
-      </el-menu-item>
+      <el-sub-menu index="car-management">
+        <template #title>
+          <el-icon><Van /></el-icon>
+          <span>จัดการรถยนต์</span>
+        </template>
+        <el-menu-item index="/car-models">
+          <el-icon><Picture /></el-icon>
+          <span>รูปภาพรถยนต์</span>
+        </el-menu-item>
+        <el-menu-item index="/car-categories">
+          <el-icon><FolderOpened /></el-icon>
+          <span>ประเภทกลุ่มรถ</span>
+        </el-menu-item>
+      </el-sub-menu>
 
       <el-sub-menu index="content">
         <template #title>
@@ -70,6 +88,10 @@
         <el-menu-item index="/pages/contact">
           <el-icon><Phone /></el-icon>
           <span>ข้อมูลติดต่อ</span>
+        </el-menu-item>
+        <el-menu-item index="/contact-submissions">
+          <el-icon><Message /></el-icon>
+          <span>ข้อความจากลูกค้า</span>
         </el-menu-item>
         <el-menu-item index="/pages/privacy">
           <el-icon><Lock /></el-icon>
@@ -104,6 +126,11 @@ const route = useRoute()
 const activeMenu = computed(() => {
   return route.path
 })
+
+const handleLogoError = (e) => {
+  // Fallback to local logo if external fails
+  e.target.src = '/logo.svg'
+}
 </script>
 
 <style lang="scss" scoped>
@@ -113,14 +140,14 @@ const activeMenu = computed(() => {
     text-align: center;
     border-bottom: 1px solid #f0f0f0;
 
-    h1 {
-      font-size: 24px;
-      color: #FF595A;
-      font-weight: 700;
-      margin: 0;
+    .logo-image {
+      max-width: 120px;
+      height: auto;
+      margin-bottom: 8px;
     }
 
     span {
+      display: block;
       font-size: 12px;
       color: #999;
     }
