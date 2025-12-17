@@ -42,6 +42,11 @@
         </el-menu-item>
       </el-sub-menu>
 
+      <el-menu-item index="/check-ins">
+        <el-icon><Ticket /></el-icon>
+        <span>เช็คอินออนไลน์</span>
+      </el-menu-item>
+
       <el-sub-menu index="car-management">
         <template #title>
           <el-icon><Van /></el-icon>

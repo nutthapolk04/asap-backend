@@ -8,7 +8,7 @@
         @click="$router.push('/promotions/create')"
       >
         <el-icon><Plus /></el-icon>
-        เพิ่มโปรโมชั่น
+        <span>เพิ่มโปรโมชั่น</span>
       </el-button>
     </div>
 

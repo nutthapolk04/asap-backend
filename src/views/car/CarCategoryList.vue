@@ -1,79 +1,96 @@
 <template>
   <div class="car-category-list">
-    <div class="page-header">
-      <h1>จัดการประเภทกลุ่มรถ</h1>
-      <el-button type="primary" @click="openDialog()">
-        <el-icon><Plus /></el-icon>
-        เพิ่มประเภทกลุ่มรถ
-      </el-button>
+    <!-- Sticky Header -->
+    <div class="sticky-header">
+      <div class="page-header">
+        <h1>จัดการประเภทกลุ่มรถ</h1>
+        <el-button type="primary" @click="openDialog()">
+          <el-icon><Plus /></el-icon>
+          <span>เพิ่มประเภทกลุ่มรถ</span>
+        </el-button>
+      </div>
+
+      <!-- Stats Summary -->
+      <div class="stats-row">
+        <div class="stat-item">
+          <span class="stat-value">{{ categories.length }}</span>
+          <span class="stat-label">ประเภททั้งหมด</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ activeCount }}</span>
+          <span class="stat-label">เปิดใช้งาน</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ totalCars }}</span>
+          <span class="stat-label">รถทั้งหมด</span>
+        </div>
+      </div>
     </div>
 
-    <div class="content-card">
-      <el-table
-        v-loading="loading"
-        :data="categories"
-        style="width: 100%"
-      >
-        <el-table-column width="60" align="center">
-          <template #default>
-            <el-icon class="drag-handle"><Rank /></el-icon>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="order" label="ลำดับ" width="80" align="center" />
-
-        <el-table-column label="รูปภาพ" width="120" align="center">
-          <template #default="{ row }">
+    <!-- Category Cards -->
+    <div class="content-card" v-loading="loading">
+      <div class="category-grid">
+        <div
+          v-for="category in categories"
+          :key="category.id"
+          class="category-card"
+          :class="{ 'is-inactive': !category.isActive }"
+        >
+          <div class="card-image">
             <el-image
-              v-if="row.image"
-              :src="row.image"
-              :preview-src-list="[row.image]"
-              fit="contain"
-              class="category-image"
+              v-if="category.image"
+              :src="category.image"
+              fit="cover"
+              :preview-src-list="[category.image]"
             />
-            <div v-else class="no-image">
-              <el-icon><Picture /></el-icon>
-              <span>ไม่มีรูป</span>
+            <div v-else class="image-placeholder">
+              <el-icon :size="40"><Picture /></el-icon>
             </div>
-          </template>
-        </el-table-column>
+            <div class="card-badge">
+              <span class="order-badge">#{{ category.order }}</span>
+            </div>
+            <div class="card-status">
+              <el-tag :type="category.isActive ? 'success' : 'info'" size="small" effect="dark">
+                {{ category.isActive ? 'เปิดใช้งาน' : 'ปิดใช้งาน' }}
+              </el-tag>
+            </div>
+          </div>
 
-        <el-table-column prop="name" label="ชื่อประเภท" min-width="200" />
+          <div class="card-content">
+            <h3 class="card-title">{{ category.name }}</h3>
+            <div class="card-meta">
+              <div class="sippcode-badges">
+                <code
+                  v-for="(code, idx) in (category.sippcodes || [])"
+                  :key="idx"
+                  class="sippcode-badge"
+                >{{ code }}</code>
+              </div>
+              <span class="car-count">
+                <el-icon><Van /></el-icon>
+                {{ category.carCount || 0 }} รุ่น
+              </span>
+            </div>
+          </div>
 
-        <el-table-column prop="slug" label="Slug" min-width="150">
-          <template #default="{ row }">
-            <code>{{ row.slug }}</code>
-          </template>
-        </el-table-column>
-
-        <el-table-column label="จำนวนรถ" width="100" align="center">
-          <template #default="{ row }">
-            <el-tag type="info">{{ row.carCount || 0 }} รุ่น</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column prop="isActive" label="สถานะ" width="100" align="center">
-          <template #default="{ row }">
+          <div class="card-actions">
             <el-switch
-              v-model="row.isActive"
-              @change="handleStatusChange(row)"
+              v-model="category.isActive"
+              size="small"
+              @change="handleStatusChange(category)"
             />
-          </template>
-        </el-table-column>
-
-        <el-table-column label="จัดการ" width="150" align="center">
-          <template #default="{ row }">
-            <div class="table-actions">
-              <el-button type="primary" text @click="openDialog(row)">
+            <div class="action-buttons">
+              <el-button type="primary" size="small" circle @click="openDialog(category)">
                 <el-icon><Edit /></el-icon>
               </el-button>
-              <el-button type="danger" text @click="handleDelete(row)">
+              <el-button type="danger" size="small" circle @click="handleDelete(category)">
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>
-          </template>
-        </el-table-column>
-      </el-table>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <!-- Dialog -->
@@ -102,7 +119,7 @@
                 <div class="image-actions">
                   <el-button type="danger" size="small" @click.stop="removeImage">
                     <el-icon><Delete /></el-icon>
-                    ลบรูป
+                    <span>ลบรูป</span>
                   </el-button>
                 </div>
               </div>
@@ -115,20 +132,48 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="ชื่อประเภทกลุ่มรถ" prop="name">
-          <el-input
-            v-model="form.name"
-            placeholder="เช่น Economy, SUV, EV Car"
-            @blur="generateSlug"
-          />
-        </el-form-item>
+        <el-row :gutter="16">
+          <el-col :span="16">
+            <el-form-item label="ชื่อประเภทกลุ่มรถ" prop="name">
+              <el-input
+                v-model="form.name"
+                placeholder="เช่น Economy, SUV, EV Car"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item label="ลำดับ" prop="order">
+              <el-input-number v-model="form.order" :min="1" style="width: 100%;" />
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-        <el-form-item label="Slug" prop="slug">
-          <el-input v-model="form.slug" placeholder="auto-generate" />
-        </el-form-item>
-
-        <el-form-item label="ลำดับ" prop="order">
-          <el-input-number v-model="form.order" :min="1" style="width: 100%;" />
+        <el-form-item label="Sippcode" required>
+          <div class="sippcode-list">
+            <div
+              v-for="(code, index) in form.sippcodes"
+              :key="index"
+              class="sippcode-item"
+            >
+              <el-input
+                v-model="form.sippcodes[index]"
+                placeholder="เช่น ECAR, CCAR, SCAR"
+              />
+              <el-button
+                v-if="form.sippcodes.length > 1"
+                type="danger"
+                circle
+                size="small"
+                @click="removeSippcode(index)"
+              >
+                <el-icon><Delete /></el-icon>
+              </el-button>
+            </div>
+            <div class="add-sippcode" @click="addSippcode">
+              <el-icon><Plus /></el-icon>
+              <span>Add another</span>
+            </div>
+          </div>
         </el-form-item>
 
         <el-form-item label="สถานะ">
@@ -143,7 +188,8 @@
       <template #footer>
         <el-button @click="dialogVisible = false">ยกเลิก</el-button>
         <el-button type="primary" :loading="saving" @click="handleSubmit">
-          บันทึก
+          <el-icon><Check /></el-icon>
+          <span>บันทึก</span>
         </el-button>
       </template>
     </el-dialog>
@@ -151,9 +197,10 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useApi } from '@/composables/useApi'
+import { Check, Van } from '@element-plus/icons-vue'
 
 const {
   getCarCategories,
@@ -169,9 +216,12 @@ const categories = ref([])
 const editingCategory = ref(null)
 const formRef = ref()
 
+const activeCount = computed(() => categories.value.filter(c => c.isActive).length)
+const totalCars = computed(() => categories.value.reduce((sum, c) => sum + (c.carCount || 0), 0))
+
 const form = reactive({
   name: '',
-  slug: '',
+  sippcodes: [''],
   image: '',
   order: 1,
   isActive: true
@@ -179,17 +229,15 @@ const form = reactive({
 
 const rules = {
   name: [{ required: true, message: 'กรุณากรอกชื่อประเภทกลุ่มรถ', trigger: 'blur' }],
-  slug: [{ required: true, message: 'กรุณากรอก Slug', trigger: 'blur' }],
   order: [{ required: true, message: 'กรุณากรอกลำดับ', trigger: 'blur' }]
 }
 
-const generateSlug = () => {
-  if (form.name && !form.slug) {
-    form.slug = form.name
-      .toLowerCase()
-      .replace(/[^\w\sก-๙-]/g, '')
-      .replace(/\s+/g, '-')
-  }
+const addSippcode = () => {
+  form.sippcodes.push('')
+}
+
+const removeSippcode = (index) => {
+  form.sippcodes.splice(index, 1)
 }
 
 const handleImageChange = (file) => {
@@ -220,14 +268,14 @@ const openDialog = (category = null) => {
   if (category) {
     Object.assign(form, {
       name: category.name,
-      slug: category.slug,
+      sippcodes: category.sippcodes?.length ? [...category.sippcodes] : [''],
       image: category.image,
       order: category.order,
       isActive: category.isActive
     })
   } else {
     form.name = ''
-    form.slug = ''
+    form.sippcodes = ['']
     form.image = ''
     form.order = categories.value.length + 1
     form.isActive = true
@@ -298,49 +346,191 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.drag-handle {
-  cursor: move;
-  color: #999;
-}
+.car-category-list {
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
 
-.table-actions {
-  display: flex;
-  justify-content: center;
-  gap: 4px;
-}
-
-code {
-  background: #f5f5f5;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-}
-
-.category-image {
-  width: 80px;
-  height: 60px;
-  border-radius: 8px;
-  border: 1px solid #eee;
-}
-
-.no-image {
-  width: 80px;
-  height: 60px;
-  background: #f5f5f5;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #999;
-  font-size: 12px;
-
-  .el-icon {
-    font-size: 20px;
-    margin-bottom: 4px;
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
   }
 }
 
+// Sticky Header
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #F9F9F9;
+  margin-left: -24px;
+  margin-right: -24px;
+  padding: 24px 24px 24px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+// Stats Row
+.stats-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  .stat-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #FF595A;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #666;
+      margin-top: 4px;
+    }
+  }
+}
+
+// Category Grid
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
+  }
+
+  &.is-inactive {
+    opacity: 0.6;
+
+    .card-image {
+      filter: grayscale(50%);
+    }
+  }
+
+  .card-image {
+    position: relative;
+    height: 160px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+
+    .el-image {
+      width: 100%;
+      height: 100%;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+
+      .order-badge {
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    }
+
+    .card-status {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+    }
+  }
+
+  .card-content {
+    padding: 16px;
+
+    .card-title {
+      margin: 0 0 12px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #1D2433;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+
+      .sippcode-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+      }
+
+      .sippcode-badge {
+        background: #e8f5e9;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        color: #2e7d32;
+        font-weight: 500;
+      }
+
+      .car-count {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 13px;
+        color: #666;
+
+        .el-icon {
+          color: #FF595A;
+        }
+      }
+    }
+  }
+
+  .card-actions {
+    padding: 12px 16px;
+    border-top: 1px solid #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+// Dialog styles
 .image-upload-wrapper {
   width: 100%;
 }
@@ -358,7 +548,7 @@ code {
   height: 200px;
   position: relative;
   border: 1px solid #dcdfe6;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   background: #fafafa;
 
@@ -369,8 +559,8 @@ code {
 
   .image-actions {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
+    bottom: 12px;
+    right: 12px;
   }
 }
 
@@ -378,17 +568,18 @@ code {
   width: 100%;
   height: 200px;
   border: 2px dashed #dcdfe6;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   color: #999;
   cursor: pointer;
-  transition: border-color 0.3s;
+  transition: all 0.3s;
 
   &:hover {
     border-color: #FF595A;
+    color: #FF595A;
   }
 
   .upload-icon {
@@ -400,6 +591,54 @@ code {
     font-size: 12px;
     margin-top: 8px;
     color: #bbb;
+  }
+}
+
+// Sippcode list in dialog
+.sippcode-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sippcode-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .el-input {
+    flex: 1;
+  }
+}
+
+.add-sippcode {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #67c23a;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #529b2e;
+  }
+
+  .el-icon {
+    font-size: 16px;
+  }
+}
+
+// Button icon spacing
+:deep(.el-button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  .el-icon {
+    margin: 0;
   }
 }
 </style>

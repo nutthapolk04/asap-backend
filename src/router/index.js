@@ -125,6 +125,19 @@ const routes = [
         component: () => import('@/views/faq/CategoryList.vue'),
         meta: { title: 'หมวดหมู่คำถาม' }
       },
+      // Check-in Online
+      {
+        path: 'check-ins',
+        name: 'CheckInList',
+        component: () => import('@/views/check-in/CheckInList.vue'),
+        meta: { title: 'เช็คอินออนไลน์' }
+      },
+      {
+        path: 'check-ins/:id',
+        name: 'CheckInDetail',
+        component: () => import('@/views/check-in/CheckInDetail.vue'),
+        meta: { title: 'รายละเอียดเช็คอิน' }
+      },
       // Car Models
       {
         path: 'car-models',

@@ -4,7 +4,7 @@
       <h1>จัดการคำถามที่พบบ่อย</h1>
       <el-button type="primary" @click="$router.push('/faqs/create')">
         <el-icon><Plus /></el-icon>
-        เพิ่มคำถาม
+        <span>เพิ่มคำถาม</span>
       </el-button>
     </div>
 

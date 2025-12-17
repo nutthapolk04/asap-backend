@@ -45,19 +45,19 @@
       <div class="quick-actions">
         <el-button type="primary" @click="$router.push('/banners/create')">
           <el-icon><Plus /></el-icon>
-          เพิ่มแบนเนอร์
+          <span>เพิ่มแบนเนอร์</span>
         </el-button>
         <el-button @click="$router.push('/promotions/create')">
           <el-icon><Plus /></el-icon>
-          เพิ่มโปรโมชั่น
+          <span>เพิ่มโปรโมชั่น</span>
         </el-button>
         <el-button @click="$router.push('/articles/create')">
           <el-icon><Plus /></el-icon>
-          เพิ่มบทความ
+          <span>เพิ่มบทความ</span>
         </el-button>
         <el-button @click="$router.push('/faqs/create')">
           <el-icon><Plus /></el-icon>
-          เพิ่มคำถาม
+          <span>เพิ่มคำถาม</span>
         </el-button>
       </div>
     </div>
@@ -164,6 +164,16 @@ const activePromotions = ref([
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 16px;
+
+  :deep(.el-button) {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    .el-icon {
+      margin: 0;
+    }
+  }
 }
 
 .dashboard-grid {

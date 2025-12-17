@@ -4,7 +4,7 @@
       <h1>จัดการบทความ</h1>
       <el-button type="primary" @click="$router.push('/articles/create')">
         <el-icon><Plus /></el-icon>
-        เพิ่มบทความ
+        <span>เพิ่มบทความ</span>
       </el-button>
     </div>
 
@@ -49,17 +49,30 @@
         :data="filteredArticles"
         style="width: 100%"
       >
-        <el-table-column label="รูปปก" width="100">
+        <el-table-column label="รูปปก" width="140" align="center">
           <template #default="{ row }">
-            <el-image
-              :src="row.coverImage"
-              fit="cover"
-              style="width: 60px; height: 60px; border-radius: 4px;"
-            />
+            <div class="cover-image-wrapper">
+              <el-image
+                v-if="row.coverImage"
+                :src="row.coverImage"
+                fit="cover"
+                class="cover-image"
+                :preview-src-list="[row.coverImage]"
+              />
+              <div v-else class="cover-placeholder">
+                <el-icon :size="24"><Picture /></el-icon>
+              </div>
+            </div>
           </template>
         </el-table-column>
 
-        <el-table-column prop="title" label="หัวข้อ" min-width="250" />
+        <el-table-column prop="title" label="หัวข้อ" min-width="280">
+          <template #default="{ row }">
+            <div class="article-title">
+              <span class="title-text">{{ row.title }}</span>
+            </div>
+          </template>
+        </el-table-column>
 
         <el-table-column prop="category" label="หมวดหมู่" width="120" />
 
@@ -124,7 +137,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Search } from '@element-plus/icons-vue'
+import { Search, Picture } from '@element-plus/icons-vue'
 import { useApi } from '@/composables/useApi'
 
 const { getArticles, getArticleCategories, deleteArticle } = useApi()
@@ -203,7 +216,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
   gap: 12px;
 }
@@ -219,19 +232,116 @@ onMounted(() => {
   font-size: 14px;
 }
 
+// Cover Image Styles
+.cover-image-wrapper {
+  width: 100px;
+  height: 70px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  margin: 4px auto;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.cover-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c0c4cc;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+}
+
+// Article Title
+.article-title {
+  .title-text {
+    font-weight: 500;
+    color: #1D2433;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Table Enhancements
+:deep(.el-table) {
+  --el-table-border-color: #f0f2f5;
+
+  .el-table__row {
+    transition: background-color 0.2s ease;
+
+    &:hover > td {
+      background-color: #fafbfc !important;
+    }
+  }
+
+  .el-table__header th {
+    background-color: #fafbfc;
+    font-weight: 600;
+    color: #606266;
+    font-size: 13px;
+  }
+
+  .el-table__cell {
+    padding: 16px 0;
+  }
+}
+
 .table-actions {
   display: flex;
   justify-content: center;
   gap: 4px;
+
+  .el-button {
+    padding: 8px;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      border-radius: 6px;
+    }
+  }
 }
 
 .tags-cell {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 
   .tag-item {
     margin: 0;
+    border-radius: 4px;
+  }
+}
+
+// Status Badge Improvements
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+
+  &--published {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &--draft {
+    background-color: #fff3e0;
+    color: #e65100;
   }
 }
 </style>

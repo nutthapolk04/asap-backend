@@ -52,7 +52,7 @@
                     <div class="image-actions">
                       <el-button type="danger" size="small" @click.stop="form.bannerImage = ''">
                         <el-icon><Delete /></el-icon>
-                        ลบรูป
+                        <span>ลบรูป</span>
                       </el-button>
                     </div>
                   </div>
@@ -163,7 +163,7 @@
         <div class="form-actions">
           <el-button type="primary" size="large" :loading="saving" @click="handleSubmit">
             <el-icon><Check /></el-icon>
-            บันทึกการเปลี่ยนแปลง
+            <span>บันทึกการเปลี่ยนแปลง</span>
           </el-button>
         </div>
       </el-form>
@@ -400,5 +400,16 @@ onMounted(() => {
 .form-actions {
   display: flex;
   justify-content: flex-end;
+}
+
+// Button icon spacing
+:deep(.el-button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  .el-icon {
+    margin: 0;
+  }
 }
 </style>

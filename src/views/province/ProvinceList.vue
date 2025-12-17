@@ -8,7 +8,7 @@
         @click="$router.push('/provinces/create')"
       >
         <el-icon><Plus /></el-icon>
-        เพิ่มจังหวัด
+        <span>เพิ่มจังหวัด</span>
       </el-button>
     </div>
 

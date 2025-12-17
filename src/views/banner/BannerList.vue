@@ -8,7 +8,7 @@
         @click="$router.push('/banners/create')"
       >
         <el-icon><Plus /></el-icon>
-        เพิ่มแบนเนอร์
+        <span>เพิ่มแบนเนอร์</span>
       </el-button>
     </div>
 

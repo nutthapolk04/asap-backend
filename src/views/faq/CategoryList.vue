@@ -4,7 +4,7 @@
       <h1>หมวดหมู่คำถาม</h1>
       <el-button type="primary" @click="openDialog()">
         <el-icon><Plus /></el-icon>
-        เพิ่มหมวดหมู่
+        <span>เพิ่มหมวดหมู่</span>
       </el-button>
     </div>
 

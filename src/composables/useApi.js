@@ -328,7 +328,7 @@ const mockCarCategories = ref([
   {
     id: 1,
     name: 'Economy',
-    slug: 'economy',
+    sippcodes: ['ECAR', 'CCAR'],
     image: 'https://placehold.co/400x300/FF595A/white?text=Economy',
     order: 1,
     isActive: true,
@@ -337,7 +337,7 @@ const mockCarCategories = ref([
   {
     id: 2,
     name: 'SUV',
-    slug: 'suv',
+    sippcodes: ['SCAR', 'IFAR'],
     image: 'https://placehold.co/400x300/2574FF/white?text=SUV',
     order: 2,
     isActive: true,
@@ -346,7 +346,7 @@ const mockCarCategories = ref([
   {
     id: 3,
     name: 'EV Car',
-    slug: 'ev-car',
+    sippcodes: ['EVAR'],
     image: 'https://placehold.co/400x300/36B37E/white?text=EV+Car',
     order: 3,
     isActive: true,
@@ -355,7 +355,7 @@ const mockCarCategories = ref([
   {
     id: 4,
     name: 'Hybrid Car',
-    slug: 'hybrid-car',
+    sippcodes: ['HCAR', 'HCMR'],
     image: 'https://placehold.co/400x300/9B59B6/white?text=Hybrid+Car',
     order: 4,
     isActive: true,
@@ -364,7 +364,7 @@ const mockCarCategories = ref([
   {
     id: 5,
     name: 'Luxury',
-    slug: 'luxury',
+    sippcodes: ['LCAR', 'PCAR', 'FCAR'],
     image: 'https://placehold.co/400x300/FFAB00/white?text=Luxury',
     order: 5,
     isActive: true,
@@ -373,6 +373,175 @@ const mockCarCategories = ref([
 ])
 
 // Mock Car Brands & Models
+// Mock Check-in Online
+const mockCheckIns = ref([
+  {
+    id: 1,
+    bookingNumber: 'ASP20241201001',
+    bookingDate: '2024-12-01',
+    customerName: 'สมชาย ใจดี',
+    phone: '081-234-5678',
+    email: 'somchai@gmail.com',
+    carModel: 'Toyota Vios',
+    branch: 'กรุงเทพ - สนามบิน สุวรรณภูมิ',
+    pickupDate: '2024-12-16',
+    pickupTime: '10:00',
+    returnDate: '2024-12-20',
+    returnTime: '10:00',
+    checkInDate: '2024-12-15T14:30:00',
+    status: 'pending',
+    documents: [
+      {
+        label: 'สำเนาบัตรประชาชน',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/2574FF/white?text=ID+Card',
+        fileName: 'id_card.jpg'
+      },
+      {
+        label: 'สำเนาใบขับขี่',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/36B37E/white?text=Driving+License',
+        fileName: 'driving_license.jpg'
+      }
+    ],
+    actionBy: null,
+    actionDate: null,
+    rejectReason: null
+  },
+  {
+    id: 2,
+    bookingNumber: 'ASP20241201002',
+    bookingDate: '2024-12-02',
+    customerName: 'สมหญิง รักเที่ยว',
+    phone: '089-876-5432',
+    email: 'somying@hotmail.com',
+    carModel: 'Honda City',
+    branch: 'ภูเก็ต - สนามบิน',
+    pickupDate: '2024-12-17',
+    pickupTime: '09:00',
+    returnDate: '2024-12-22',
+    returnTime: '18:00',
+    checkInDate: '2024-12-15T10:15:00',
+    status: 'pending',
+    documents: [
+      {
+        label: 'สำเนาบัตรประชาชน',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/FF595A/white?text=ID+Card+2',
+        fileName: 'id_card_2.jpg'
+      },
+      {
+        label: 'สำเนาใบขับขี่',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/FFAB00/white?text=Driving+License+2',
+        fileName: 'driving_license_2.jpg'
+      },
+      {
+        label: 'หนังสือเดินทาง',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/9B59B6/white?text=Passport',
+        fileName: 'passport.jpg'
+      }
+    ],
+    actionBy: null,
+    actionDate: null,
+    rejectReason: null
+  },
+  {
+    id: 3,
+    bookingNumber: 'ASP20241130001',
+    bookingDate: '2024-11-30',
+    customerName: 'วิชัย ขับดี',
+    phone: '062-111-2222',
+    email: 'wichai@company.co.th',
+    carModel: 'Deepal S07',
+    branch: 'เชียงใหม่ - สนามบิน',
+    pickupDate: '2024-12-15',
+    pickupTime: '14:00',
+    returnDate: '2024-12-18',
+    returnTime: '14:00',
+    checkInDate: '2024-12-14T16:45:00',
+    status: 'approved',
+    documents: [
+      {
+        label: 'สำเนาบัตรประชาชน',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/36B37E/white?text=ID+Card+Approved',
+        fileName: 'id_card_3.jpg'
+      },
+      {
+        label: 'สำเนาใบขับขี่',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/36B37E/white?text=License+Approved',
+        fileName: 'driving_license_3.jpg'
+      }
+    ],
+    actionBy: 'Admin',
+    actionDate: '2024-12-14T17:30:00',
+    rejectReason: null
+  },
+  {
+    id: 4,
+    bookingNumber: 'ASP20241128001',
+    bookingDate: '2024-11-28',
+    customerName: 'นภา ท่องโลก',
+    phone: '095-333-4444',
+    email: 'napa@gmail.com',
+    carModel: 'Mazda CX-5',
+    branch: 'กระบี่ - สนามบิน',
+    pickupDate: '2024-12-14',
+    pickupTime: '11:00',
+    returnDate: '2024-12-16',
+    returnTime: '11:00',
+    checkInDate: '2024-12-13T09:20:00',
+    status: 'rejected',
+    documents: [
+      {
+        label: 'สำเนาบัตรประชาชน',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/F56C6C/white?text=ID+Card+Rejected',
+        fileName: 'id_card_4.jpg'
+      }
+    ],
+    actionBy: 'Admin',
+    actionDate: '2024-12-13T10:00:00',
+    rejectReason: 'เอกสารไม่ชัดเจน กรุณาอัปโหลดใหม่อีกครั้ง และกรุณาแนบสำเนาใบขับขี่ด้วย'
+  },
+  {
+    id: 5,
+    bookingNumber: 'ASP20241215001',
+    bookingDate: '2024-12-15',
+    customerName: 'ประภา สุขใจ',
+    phone: '088-555-6666',
+    email: 'prapa@outlook.com',
+    carModel: 'Nissan Kicks',
+    branch: 'พัทยา - สาขาหลัก',
+    pickupDate: '2024-12-18',
+    pickupTime: '08:00',
+    returnDate: '2024-12-21',
+    returnTime: '20:00',
+    checkInDate: '2024-12-15T18:00:00',
+    status: 'pending',
+    documents: [
+      {
+        label: 'สำเนาบัตรประชาชน',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/2574FF/white?text=ID+Card+5',
+        fileName: 'id_card_5.jpg'
+      },
+      {
+        label: 'สำเนาใบขับขี่',
+        type: 'image/jpeg',
+        url: 'https://placehold.co/800x500/36B37E/white?text=License+5',
+        fileName: 'driving_license_5.jpg'
+      }
+    ],
+    actionBy: null,
+    actionDate: null,
+    rejectReason: null
+  }
+])
+
 const mockCarBrands = ref([
   {
     id: 1,
@@ -1048,6 +1217,40 @@ export const useApi = () => {
     return mockAppBanner.value
   }
 
+  // ===== Check-in Online =====
+  const getCheckIns = async () => {
+    return [...mockCheckIns.value].sort((a, b) =>
+      new Date(b.checkInDate) - new Date(a.checkInDate)
+    )
+  }
+
+  const getCheckIn = async (id) => {
+    return mockCheckIns.value.find(c => c.id === parseInt(id))
+  }
+
+  const approveCheckIn = async (id) => {
+    const checkIn = mockCheckIns.value.find(c => c.id === parseInt(id))
+    if (checkIn) {
+      checkIn.status = 'approved'
+      checkIn.actionBy = 'Admin'
+      checkIn.actionDate = new Date().toISOString()
+      return checkIn
+    }
+    return null
+  }
+
+  const rejectCheckIn = async (id, reason) => {
+    const checkIn = mockCheckIns.value.find(c => c.id === parseInt(id))
+    if (checkIn) {
+      checkIn.status = 'rejected'
+      checkIn.actionBy = 'Admin'
+      checkIn.actionDate = new Date().toISOString()
+      checkIn.rejectReason = reason
+      return checkIn
+    }
+    return null
+  }
+
   // ===== Car Categories (ประเภทกลุ่มรถ) =====
   const getCarCategories = async () => {
     return [...mockCarCategories.value].sort((a, b) => a.order - b.order)
@@ -1197,6 +1400,11 @@ export const useApi = () => {
     getCarBrands,
     getCarBrand,
     updateCarModelImages,
-    updateCarModelStatus
+    updateCarModelStatus,
+    // Check-in Online
+    getCheckIns,
+    getCheckIn,
+    approveCheckIn,
+    rejectCheckIn
   }
 }
