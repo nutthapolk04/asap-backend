@@ -85,7 +85,7 @@
               @click="viewDetail(row)"
             >
               <el-icon><View /></el-icon>
-              <span>ดูรายละเอียด</span>
+              <span style="margin-left: 6px;">ดูรายละเอียด</span>
             </el-button>
           </template>
         </el-table-column>
