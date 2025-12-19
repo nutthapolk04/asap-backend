@@ -81,7 +81,7 @@
           <template #default="{ row }">
             <el-button type="primary" text @click.stop="openDetailDialog(row)">
               <el-icon><View /></el-icon>
-              ดูรายละเอียด
+              <span style="margin-left: 6px;">ดูรายละเอียด</span>
             </el-button>
           </template>
         </el-table-column>
@@ -165,7 +165,7 @@
           @click="markAsRead"
         >
           <el-icon><Check /></el-icon>
-          บันทึก "อ่านแล้ว"
+          <span style="margin-left: 6px;">บันทึก "อ่านแล้ว"</span>
         </el-button>
       </template>
     </el-dialog>

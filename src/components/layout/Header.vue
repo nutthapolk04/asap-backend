@@ -23,11 +23,11 @@
           <el-dropdown-menu>
             <el-dropdown-item @click="goToProfile">
               <el-icon><User /></el-icon>
-              โปรไฟล์ของฉัน
+              <span style="margin-left: 6px;">โปรไฟล์ของฉัน</span>
             </el-dropdown-item>
             <el-dropdown-item divided @click="handleLogout">
               <el-icon><SwitchButton /></el-icon>
-              ออกจากระบบ
+              <span style="margin-left: 6px;">ออกจากระบบ</span>
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>

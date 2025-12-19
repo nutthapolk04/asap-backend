@@ -4,7 +4,7 @@
       <div class="header-left">
         <el-button text @click="$router.push('/car-models')">
           <el-icon><ArrowLeft /></el-icon>
-          กลับ
+          <span style="margin-left: 6px;">กลับ</span>
         </el-button>
         <div class="brand-title" v-if="brand">
           <el-image
@@ -90,7 +90,7 @@
                     @click="openImageDialog(model)"
                   >
                     <el-icon><Picture /></el-icon>
-                    จัดการรูปภาพ
+                    <span style="margin-left: 6px;">จัดการรูปภาพ</span>
                   </el-button>
                 </div>
 

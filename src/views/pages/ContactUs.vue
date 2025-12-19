@@ -13,7 +13,7 @@
       v-loading="loading"
     >
       <div class="form-section">
-        <div class="form-section-title">รูป Hero</div>
+        <div class="form-section-title">รูปข้อมูลผู้ติดต่อ</div>
 
         <el-form-item prop="heroImage">
           <div class="image-upload-wrapper">

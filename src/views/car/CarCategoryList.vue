@@ -6,7 +6,7 @@
         <h1>จัดการประเภทกลุ่มรถ</h1>
         <el-button type="primary" @click="openDialog()">
           <el-icon><Plus /></el-icon>
-          <span>เพิ่มประเภทกลุ่มรถ</span>
+          <span style="margin-left: 6px;">เพิ่มประเภทกลุ่มรถ</span>
         </el-button>
       </div>
 

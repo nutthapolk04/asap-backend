@@ -4,7 +4,7 @@
       <h1>จัดการคำถามที่พบบ่อย</h1>
       <el-button type="primary" @click="$router.push('/faqs/create')">
         <el-icon><Plus /></el-icon>
-        <span>เพิ่มคำถาม</span>
+        <span style="margin-left: 6px;">เพิ่มคำถาม</span>
       </el-button>
     </div>
 
@@ -46,7 +46,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="order" label="ลำดับ" width="80" align="center" />
+        <el-table-column label="ลำดับ" width="80" align="center">
+          <template #default="{ $index }">
+            {{ $index + 1 }}
+          </template>
+        </el-table-column>
 
         <el-table-column prop="title" label="คำถาม" min-width="300" />
 

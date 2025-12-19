@@ -4,7 +4,7 @@
       <div class="header-left">
         <el-button @click="$router.back()" text>
           <el-icon><ArrowLeft /></el-icon>
-          กลับ
+          <span style="margin-left: 6px;">กลับ</span>
         </el-button>
         <h1>รายละเอียดเช็คอิน</h1>
         <el-tag :type="getStatusType(checkIn.status)" size="large" v-if="checkIn.status">
@@ -123,11 +123,11 @@
             <div class="doc-actions">
               <el-button size="small" @click="viewFullScreen(doc)">
                 <el-icon><ZoomIn /></el-icon>
-                <span>ดูขนาดเต็ม</span>
+                <span style="margin-left: 6px;">ดูขนาดเต็ม</span>
               </el-button>
               <el-button size="small" @click="downloadDocument(doc)">
                 <el-icon><Download /></el-icon>
-                <span>ดาวน์โหลด</span>
+                <span style="margin-left: 6px;">ดาวน์โหลด</span>
               </el-button>
             </div>
           </div>
@@ -173,7 +173,7 @@
               :loading="processing"
             >
               <el-icon><CircleCloseFilled /></el-icon>
-              ยกเลิก
+              <span style="margin-left: 6px;">ยกเลิก</span>
             </el-button>
             <el-button
               type="success"
@@ -182,7 +182,7 @@
               :loading="processing"
             >
               <el-icon><CircleCheckFilled /></el-icon>
-              อนุมัติ
+              <span style="margin-left: 6px;">อนุมัติ</span>
             </el-button>
           </div>
         </div>

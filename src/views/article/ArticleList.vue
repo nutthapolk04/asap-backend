@@ -4,7 +4,7 @@
       <h1>จัดการบทความ</h1>
       <el-button type="primary" @click="$router.push('/articles/create')">
         <el-icon><Plus /></el-icon>
-        <span>เพิ่มบทความ</span>
+        <span style="margin-left: 6px;">เพิ่มบทความ</span>
       </el-button>
     </div>
 

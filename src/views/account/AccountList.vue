@@ -4,7 +4,7 @@
       <h1>จัดการผู้ใช้งาน</h1>
       <el-button type="primary" @click="$router.push('/accounts/create')">
         <el-icon><Plus /></el-icon>
-        <span>เพิ่มผู้ใช้งาน</span>
+        <span style="margin-left: 6px;">เพิ่มผู้ใช้งาน</span>
       </el-button>
     </div>
 
